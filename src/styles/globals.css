@@ -425,3 +425,8 @@ input[type="checkbox"] {
   border: 1px solid #ddd;
   opacity: 0.7;
 }
+
+.input-error {
+  border: 2px solid #e53935 !important;
+  background: #fff6f6;
+}

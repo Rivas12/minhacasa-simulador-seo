@@ -28,15 +28,32 @@ export default function Page() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [parcelaMensal, setParcelaMensal] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [invalidFields, setInvalidFields] = useState({});
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isEmailValid = emailRegex.test(formData.email);
     const phoneDigits = formData.celular.replace(/\D/g, '');
     const isPhoneValid = phoneDigits.length === 11;
+    const isValorImovelValid = !!formData.valor_apartamento && parseFloat(formData.valor_apartamento) > 0;
+    const isEntradaValid = !!formData.entrada && parseFloat(formData.entrada) >= 0;
+    const isPrazoValid = !!formData.prazo_anos && parseInt(formData.prazo_anos) >= 10;
+    const isSaldoFgtsValid = formData.saldo_fgts === '' || parseFloat(formData.saldo_fgts) >= 0;
+
+    setInvalidFields({
+      valor_apartamento: !isValorImovelValid,
+      entrada: !isEntradaValid,
+      prazo_anos: !isPrazoValid,
+      saldo_fgts: !isSaldoFgtsValid,
+      email: !isEmailValid,
+      celular: !isPhoneValid,
+    });
+
     const isValid =
-      formData.valor_apartamento &&
-      formData.entrada &&
+      isValorImovelValid &&
+      isEntradaValid &&
+      isPrazoValid &&
+      isSaldoFgtsValid &&
       isEmailValid &&
       isPhoneValid &&
       formData.concorda_termos;
@@ -201,7 +218,7 @@ export default function Page() {
                 onValueChange={(values) => handleNumberFormatChange('valor_apartamento', values)}
                 value={formData.valor_apartamento}
                 required
-                className="simple-input"
+                className={`simple-input${invalidFields.valor_apartamento ? ' input-error' : ''}`}
                 getInputRef={(el) => inputRefs.current.valor_apartamento = el}
                 allowNegative={false}
               />
@@ -220,7 +237,7 @@ export default function Page() {
                 onValueChange={(values) => handleNumberFormatChange('entrada', values)}
                 value={formData.entrada}
                 required
-                className="simple-input"
+                className={`simple-input${invalidFields.entrada ? ' input-error' : ''}`}
                 getInputRef={(el) => inputRefs.current.entrada = el}
                 allowNegative={false}
               />
@@ -289,7 +306,7 @@ export default function Page() {
                 min="10"
                 max="420"
                 step="1"
-                className="simple-input"
+                className={`simple-input${invalidFields.prazo_anos ? ' input-error' : ''}`}
               />
             </div>
 
@@ -304,7 +321,7 @@ export default function Page() {
                 placeholder="R$ 0"
                 onValueChange={(values) => handleNumberFormatChange('saldo_fgts', values)}
                 value={formData.saldo_fgts}
-                className="simple-input"
+                className={`simple-input${invalidFields.saldo_fgts ? ' input-error' : ''}`}
               />
             </div>
 
@@ -406,7 +423,7 @@ export default function Page() {
                 onChange={handleChange}
                 placeholder="email@gmail.com"
                 required
-                className="simple-input"
+                className={`simple-input${invalidFields.email ? ' input-error' : ''}`}
               />
             </div>
 
@@ -429,7 +446,7 @@ export default function Page() {
                 }}
                 placeholder="(00) 00000-0000"
                 required
-                className="simple-input"
+                className={`simple-input${invalidFields.celular ? ' input-error' : ''}`}
               />
             </div>
           </div>
