@@ -16,11 +16,15 @@ export default function Document() {
         <meta property="og:title" content="Simulador Minha Casa Minha Vida" />
         <meta
           property="og:description"
-          content="Utilize nosso simulador para calcular seu financiamento pelo programa Minha Casa Minha Vida de forma rápida e fácil."
+          content="Simule seu financiamento Minha Casa Minha Vida de forma rápida e fácil."
         />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://simuleminhacasa.com.br/" />
         <meta property="og:image" content="/imagem-compartilhamento.png" />
+        <meta property="og:url" content="https://simuleminhacasa.com.br/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Simulador Minha Casa Minha Vida" />
+        <meta name="twitter:description" content="Simule seu financiamento Minha Casa Minha Vida de forma rápida e fácil." />
+        <meta name="twitter:image" content="/imagem-compartilhamento.png" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
