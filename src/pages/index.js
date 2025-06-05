@@ -26,21 +26,25 @@ export default function Page() {
     estado: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [wasSubmitted, setWasSubmitted] = useState(false);
   const [parcelaMensal, setParcelaMensal] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isEmailValid = emailRegex.test(formData.email);
     const phoneDigits = formData.celular.replace(/\D/g, '');
-    const isPhoneValid = phoneDigits.length === 11;
-    const isValid =
-      formData.valor_apartamento &&
-      formData.entrada &&
-      isEmailValid &&
-      isPhoneValid &&
-      formData.concorda_termos;
-    setIsFormValid(isValid);
+    const newErrors = {};
+
+    if (!formData.valor_apartamento || formData.valor_apartamento <= 0) newErrors.valor_apartamento = true;
+    if (!formData.entrada || formData.entrada < 0) newErrors.entrada = true;
+    if (!emailRegex.test(formData.email)) newErrors.email = true;
+    if (phoneDigits.length !== 11) newErrors.celular = true;
+    if (!formData.concorda_termos) newErrors.concorda_termos = true;
+
+    setErrors(newErrors);
+
+    setIsFormValid(Object.keys(newErrors).length === 0);
   };
 
   useEffect(() => {
@@ -117,6 +121,10 @@ export default function Page() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setWasSubmitted(true); // Marca que tentou enviar
+    validateForm();
+    if (!isFormValid) return; // Não envia se inválido
+
     const parcela = calcularParcela();
     setParcelaMensal(parcela);
     setIsSubmitted(true);
@@ -201,7 +209,7 @@ export default function Page() {
                 onValueChange={(values) => handleNumberFormatChange('valor_apartamento', values)}
                 value={formData.valor_apartamento}
                 required
-                className="simple-input"
+                className={"simple-input"}
                 getInputRef={(el) => inputRefs.current.valor_apartamento = el}
                 allowNegative={false}
               />
@@ -220,7 +228,7 @@ export default function Page() {
                 onValueChange={(values) => handleNumberFormatChange('entrada', values)}
                 value={formData.entrada}
                 required
-                className="simple-input"
+                className={"simple-input"}
                 getInputRef={(el) => inputRefs.current.entrada = el}
                 allowNegative={false}
               />
@@ -290,6 +298,7 @@ export default function Page() {
                 max="420"
                 step="1"
                 className="simple-input"
+                required
               />
             </div>
 
@@ -304,7 +313,7 @@ export default function Page() {
                 placeholder="R$ 0"
                 onValueChange={(values) => handleNumberFormatChange('saldo_fgts', values)}
                 value={formData.saldo_fgts}
-                className="simple-input"
+                className={"simple-input"}
               />
             </div>
 
@@ -406,7 +415,7 @@ export default function Page() {
                 onChange={handleChange}
                 placeholder="email@gmail.com"
                 required
-                className="simple-input"
+                className={"simple-input"}
               />
             </div>
 
@@ -455,7 +464,6 @@ export default function Page() {
           <button 
             type="submit" 
             className="simulate-button"
-            disabled={!isFormValid}
             style={{ 
               opacity: isFormValid ? 1 : 0.5,
               cursor: isFormValid ? 'pointer' : 'not-allowed' 
