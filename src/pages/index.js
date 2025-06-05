@@ -37,7 +37,6 @@ export default function Page() {
     const newErrors = {};
 
     if (!formData.valor_apartamento || formData.valor_apartamento <= 0) newErrors.valor_apartamento = true;
-    if (!formData.entrada || formData.entrada < 0) newErrors.entrada = true;
     if (!emailRegex.test(formData.email)) newErrors.email = true;
     if (phoneDigits.length !== 11) newErrors.celular = true;
     if (!formData.concorda_termos) newErrors.concorda_termos = true;
