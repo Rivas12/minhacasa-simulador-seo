@@ -29,6 +29,7 @@ export default function Page() {
   const [parcelaMensal, setParcelaMensal] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
   const [invalidFields, setInvalidFields] = useState({});
+  const [triedSubmit, setTriedSubmit] = useState(false);
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -134,6 +135,9 @@ export default function Page() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setTriedSubmit(true);
+    validateForm();
+    if (!isFormValid) return;
     const parcela = calcularParcela();
     setParcelaMensal(parcela);
     setIsSubmitted(true);
@@ -218,7 +222,7 @@ export default function Page() {
                 onValueChange={(values) => handleNumberFormatChange('valor_apartamento', values)}
                 value={formData.valor_apartamento}
                 required
-                className={`simple-input${invalidFields.valor_apartamento ? ' input-error' : ''}`}
+                className={`simple-input${triedSubmit && invalidFields.valor_apartamento ? ' input-error' : ''}`}
                 getInputRef={(el) => inputRefs.current.valor_apartamento = el}
                 allowNegative={false}
               />
@@ -237,7 +241,7 @@ export default function Page() {
                 onValueChange={(values) => handleNumberFormatChange('entrada', values)}
                 value={formData.entrada}
                 required
-                className={`simple-input${invalidFields.entrada ? ' input-error' : ''}`}
+                className={`simple-input${triedSubmit && invalidFields.entrada ? ' input-error' : ''}`}
                 getInputRef={(el) => inputRefs.current.entrada = el}
                 allowNegative={false}
               />
@@ -306,7 +310,7 @@ export default function Page() {
                 min="10"
                 max="420"
                 step="1"
-                className={`simple-input${invalidFields.prazo_anos ? ' input-error' : ''}`}
+                className={`simple-input${triedSubmit && invalidFields.prazo_anos ? ' input-error' : ''}`}
               />
             </div>
 
@@ -321,7 +325,7 @@ export default function Page() {
                 placeholder="R$ 0"
                 onValueChange={(values) => handleNumberFormatChange('saldo_fgts', values)}
                 value={formData.saldo_fgts}
-                className={`simple-input${invalidFields.saldo_fgts ? ' input-error' : ''}`}
+                className={`simple-input${triedSubmit && invalidFields.saldo_fgts ? ' input-error' : ''}`}
               />
             </div>
 
@@ -423,7 +427,7 @@ export default function Page() {
                 onChange={handleChange}
                 placeholder="email@gmail.com"
                 required
-                className={`simple-input${invalidFields.email ? ' input-error' : ''}`}
+                className={`simple-input${triedSubmit && invalidFields.email ? ' input-error' : ''}`}
               />
             </div>
 
@@ -446,7 +450,7 @@ export default function Page() {
                 }}
                 placeholder="(00) 00000-0000"
                 required
-                className={`simple-input${invalidFields.celular ? ' input-error' : ''}`}
+                className={`simple-input${triedSubmit && invalidFields.celular ? ' input-error' : ''}`}
               />
             </div>
           </div>
