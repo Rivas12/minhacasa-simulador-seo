@@ -31,7 +31,7 @@ export default function Sobre() {
                 Além do simulador, oferecemos artigos, guias completos, perguntas frequentes e notícias sobre habitação popular, financiamento imobiliário e dicas para organizar sua vida financeira. Nosso compromisso é ser referência em conteúdo de qualidade sobre o <strong>Minha Casa Minha Vida</strong> e ajudar você em todas as etapas do processo.
             </p>
             <p>
-                Se você tem dúvidas, sugestões ou deseja saber mais sobre o <strong>Simulador Minha Casa Minha Vida</strong>, entre em contato conosco pelo e-mail: <a href="mailto:contato@simuleminhacasa.com.br">contato@simuleminhacasa.com.br</a>. Nossa equipe está pronta para ajudar e responder rapidamente.
+                Se você tem dúvidas, sugestões ou deseja saber mais sobre o <strong>Simulador Minha Casa Minha Vida</strong>, entre em contato conosco pelo e-mail: <a href="mailto:simuleminhacasa@gmail.com.br">contato@simuleminhacasa.com.br</a>. Nossa equipe está pronta para ajudar e responder rapidamente.
             </p>
             <p>
                 Aproveite para explorar nosso simulador, leia nossos conteúdos exclusivos e descubra como o <strong>Minha Casa Minha Vida</strong> pode transformar sua vida e da sua família. Faça sua simulação agora mesmo e dê o primeiro passo rumo ao seu novo lar!
